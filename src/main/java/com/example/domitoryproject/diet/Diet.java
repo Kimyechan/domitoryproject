@@ -5,6 +5,7 @@ import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.*;
 
@@ -39,7 +40,8 @@ public class Diet {
         }
     }
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Long id;
 
     @NotNull
@@ -51,15 +53,17 @@ public class Diet {
     @Enumerated(EnumType.ORDINAL)
     private KindOfMeal kindOfMeal;
 
-    @Column(name="foods")
-    @ElementCollection(targetClass=String.class) //List<String> to DB
-    private List<String> foods;
+    @Column(name = "foods")
+//    @ElementCollection(targetClass = String.class) //List<String> to DB
+    @NotEmpty
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    private List<Food> foods;
 
     @NotNull
     @Enumerated(EnumType.ORDINAL)
     private DayOfWeek dayOfWeek;
 
-    @OneToMany(mappedBy = "owner")
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     private List<Comment> commentList = new ArrayList<>();
 
     public Long getId() {
@@ -86,11 +90,11 @@ public class Diet {
         this.date = date;
     }
 
-    public List<String> getFoods() {
+    public List<Food> getFoods() {
         return foods;
     }
 
-    public void setFoods(List<String> foods) {
+    public void setFoods(List<Food> foods) {
         this.foods = foods;
     }
 

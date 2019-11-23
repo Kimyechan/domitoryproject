@@ -14,19 +14,42 @@
             <input type="password">
         </table>
     </div>
-<!-- 식단표   -->
+    <!-- 식단표   -->
     <div>
-        <div>
-            <div>date</div>
-            <div>아침</div>
-            <div>점심</div>
-            <div>저녁</div>
-        </div>
+        <table>
+            <tr>
+                <td th:each="diet : ${dietlist}" th:if="${diet.kindOfMeal.toString().equals('breakfast')}">
+                    <ol>
+                        <li th:text="${diet.date}"></li>
+                        <li th:text="${diet.dayOfWeek}"></li>
+                        <li th:each="food : ${diet.foods}" th:text="${food.food}"></li>
+                    </ol>
+                </td>
+            </tr>
+            <tr>
+                <td th:each="diet : ${dietlist}" th:if="${diet.kindOfMeal.toString().equals('lunch')}">
+                    <ol>
+                        <li th:text="${diet.date}"></li>
+                        <li th:text="${diet.dayOfWeek}"></li>
+                        <li th:each="food : ${diet.foods}" th:text="${food.food}"></li>
+                    </ol>
+                </td>
+            </tr>
+            <tr>
+                <td th:each="diet : ${dietlist}" th:if="${diet.kindOfMeal.toString().equals('dinner')}">
+                    <ol>
+                        <li th:text="${diet.date}"></li>
+                        <li th:text="${diet.dayOfWeek}"></li>
+                        <li th:each="food : ${diet.foods}" th:text="${food.food}"></li>
+                    </ol>
+                </td>
+            </tr>
+        </table>
     </div>
-<!-- 신고 게시판   -->
+    <!-- 신고 게시판   -->
     <div>
         <div>
-<!--    음식 사진       <-->
+            <!--    음식 사진       <-->
             <img>
         </div>
         <div>

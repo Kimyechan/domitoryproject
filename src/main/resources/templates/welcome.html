@@ -16,6 +16,7 @@
     </div>
     <!-- 식단표   -->
     <div>
+
         <table>
             <tr>
                 <td th:each="diet : ${dietlist}" th:if="${diet.kindOfMeal.toString().equals('breakfast')}">
@@ -24,6 +25,7 @@
                         <li th:text="${diet.dayOfWeek}"></li>
                         <li th:each="food : ${diet.foods}" th:text="${food.food}"></li>
                     </ol>
+                    <button th:onclick="'window.location.href = \'' +  @{/diet/{id}(id=${diet.id})} + '\''" th:text="comment"></button>
                 </td>
             </tr>
             <tr>
@@ -33,6 +35,7 @@
                         <li th:text="${diet.dayOfWeek}"></li>
                         <li th:each="food : ${diet.foods}" th:text="${food.food}"></li>
                     </ol>
+                    <button th:onclick="'window.location.href = \'' +  @{/diet/{id}(id=${diet.id})} + '\''" th:text="comment"></button>
                 </td>
             </tr>
             <tr>
@@ -42,6 +45,7 @@
                         <li th:text="${diet.dayOfWeek}"></li>
                         <li th:each="food : ${diet.foods}" th:text="${food.food}"></li>
                     </ol>
+                    <button th:onclick="'window.location.href = \'' +  @{/diet/{id}(id=${diet.id})} + '\''" th:text="comment"></button>
                 </td>
             </tr>
         </table>

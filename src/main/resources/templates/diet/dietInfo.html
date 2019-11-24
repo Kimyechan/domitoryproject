@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <div th:object="${diet}">
+        <h5 th:text="*{date}"></h5>
+        <h5 th:text="*{dayOfWeek}"></h5>
+        <h5 th:text="*{kindOfMeal}"></h5>
+        <h5 th:each="food : *{foods}" th:text="${food.food}"></h5>
+    </div>
+</div>
+<div>
+    <!--  comment count number -->
+    <h5 th:text="${countComment} + ' Comments'"></h5>
+</div>
+<div>
+    <!--  comment write button -->
+    <button th:onclick="'window.location.href = \'' +  @{/comment/create/{dietId}(dietId=${diet.id})} + '\''" th:text="write"></button>
+</div>
+<div>
+    <!--  comment list -->
+    <div th:each="comment : ${diet.commentList}">
+        <h5 th:text="${comment.subject}"></h5>
+        <h5 th:text="${comment.rating}"></h5>
+        <h5 th:text="${comment.content}"></h5>
+    </div>
+</div>
+</body>
+</html>

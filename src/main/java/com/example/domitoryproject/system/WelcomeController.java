@@ -27,7 +27,6 @@ public class WelcomeController {
         List<Diet> dietlist = dietRepository.findAll();
         model.addAttribute("dietlist", dietlist);
 
-        System.out.println(dietlist.get(0).getKindOfMeal().toString());
         return "welcome";
     }
 }

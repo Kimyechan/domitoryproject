@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form th:object="${login}" action="/login/signUp" method="post">
+        <label>ID : </label><input type="text" th:field="*{id}"><br>
+        <label>PASSWORD : </label><input type="text" th:field="*{password}"><br>
+        <label>NAME : </label><input type="text" th:field="*{name}"><br>
+        <label>MAJOR : </label><input type="text" th:field="*{major}"><br>
+        <label>GRADE(1~4) : </label><input type="number" th:field="*{grade}" min="1" max="5"><br>
+        <label>STUDENT NUMBER : </label><input type="text" th:field="*{studentNumber}"><br>
+        <input type="submit" value="SignUp">
+    </form>
+</body>
+</html>

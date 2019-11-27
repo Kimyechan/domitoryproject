@@ -53,6 +53,30 @@ public class WelcomeController {
 
     @GetMapping("/")
     public String welcome(@SessionAttribute("login") Login login, Model model) {
+//        for (Diet.DayOfWeek dayOfWeek : Diet.DayOfWeek.values()) {
+//            for (Diet.KindOfMeal kindOfMeal : Diet.KindOfMeal.values()) {
+//                Diet newDiet1 = new Diet();
+//                newDiet1.setKindOfMeal(kindOfMeal);
+//                newDiet1.setDate("2019-11-25");
+//                newDiet1.setDayOfWeek(dayOfWeek);
+//                newDiet1.setRatingAverage(0.0);
+//
+//                List<Food> foods = new ArrayList<>();
+//                Food food1 = new Food();
+//                food1.setFood("rice");
+//                food1.setOwner(newDiet1);
+//                Food food2 = new Food();
+//                food2.setFood("bulgogi");
+//                food2.setOwner(newDiet1);
+//
+//                foods.add(food1);
+//                foods.add(food2);
+//
+//                newDiet1.setFoods(foods);
+//                dietRepository.save(newDiet1);
+//            }
+//        }
+
         List<Diet> dietlist = dietRepository.findAll();
         model.addAttribute("dietlist", dietlist);
         model.addAttribute("login", login);

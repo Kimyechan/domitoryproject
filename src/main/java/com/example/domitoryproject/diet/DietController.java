@@ -29,6 +29,18 @@ public class DietController {
         Diet diet = dietRepository.findById(id);
         Integer countComment = diet.getCommentList().size();
         List<Comment> commentList = diet.getCommentList();
+        Double ratingSum = 0.0;
+        Double ratingAverage;
+
+        for (Comment comment: commentList)
+            ratingSum = ratingSum + comment.getRating();
+
+        if(countComment != 0)
+            ratingAverage = ratingSum/countComment;
+        else
+            ratingAverage = 0.0;
+
+        diet.setRatingAverage(ratingAverage);
 
         //내림차순 정렬
         commentList.sort(new Comparator<Comment>() {

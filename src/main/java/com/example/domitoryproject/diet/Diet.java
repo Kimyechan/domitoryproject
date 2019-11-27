@@ -62,6 +62,8 @@ public class Diet {
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     private List<Comment> commentList = new ArrayList<>();
 
+    private Double ratingAverage;
+
     public Long getId() {
         return id;
     }
@@ -108,5 +110,13 @@ public class Diet {
 
     public void setCommentList(List<Comment> commentList) {
         this.commentList = commentList;
+    }
+
+    public Double getRatingAverage() {
+        return ratingAverage;
+    }
+
+    public void setRatingAverage(Double ratingAverage) {
+        this.ratingAverage = ratingAverage;
     }
 }

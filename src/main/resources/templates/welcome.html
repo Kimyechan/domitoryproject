@@ -36,6 +36,7 @@
                     <ol>
                         <li th:text="${diet.date}"></li>
                         <li th:text="${diet.dayOfWeek}"></li>
+                        <li th:text="${diet.kindOfMeal}"></li>
                         <li th:each="food : ${diet.foods}" th:text="${food.food}"></li>
                     </ol>
                     <button th:onclick="'window.location.href = \'' +  @{/diet/{id}(id=${diet.id})} + '\''"
@@ -48,6 +49,7 @@
                     <ol>
                         <li th:text="${diet.date}"></li>
                         <li th:text="${diet.dayOfWeek}"></li>
+                        <li th:text="${diet.kindOfMeal}"></li>
                         <li th:each="food : ${diet.foods}" th:text="${food.food}"></li>
                     </ol>
                     <button th:onclick="'window.location.href = \'' +  @{/diet/{id}(id=${diet.id})} + '\''"
@@ -59,6 +61,7 @@
                     <ol>
                         <li th:text="${diet.date}"></li>
                         <li th:text="${diet.dayOfWeek}"></li>
+                        <li th:text="${diet.kindOfMeal}"></li>
                         <li th:each="food : ${diet.foods}" th:text="${food.food}"></li>
                     </ol>
                     <button th:onclick="'window.location.href = \'' +  @{/diet/{id}(id=${diet.id})} + '\''"

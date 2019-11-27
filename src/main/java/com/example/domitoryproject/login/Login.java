@@ -1,8 +1,14 @@
 package com.example.domitoryproject.login;
 
+import com.example.domitoryproject.diet.Comment;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Login {
@@ -25,6 +31,9 @@ public class Login {
 
     @NotNull
     private Integer studentNumber;
+
+    @OneToMany(mappedBy = "login", cascade = CascadeType.ALL)
+    private List<Comment> commentList;
 
     public String getId() {
         return id;

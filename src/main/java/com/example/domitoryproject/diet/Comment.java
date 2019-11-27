@@ -1,9 +1,9 @@
 package com.example.domitoryproject.diet;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import com.example.domitoryproject.login.Login;
+import org.hibernate.annotations.ColumnDefault;
+
+import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -26,6 +26,16 @@ public class Comment {
 
     @ManyToOne
     private Diet owner;
+
+    @ManyToOne
+    private Login login;
+
+    private Long sympathy;
+
+    @PrePersist
+    public void prePersist() {
+        this.sympathy = this.sympathy == null ? 0 : this.sympathy;
+    }
 
     public Long getId() {
         return id;
@@ -65,5 +75,21 @@ public class Comment {
 
     public void setOwner(Diet owner) {
         this.owner = owner;
+    }
+
+    public Login getLogin() {
+        return login;
+    }
+
+    public void setLogin(Login login) {
+        this.login = login;
+    }
+
+    public Long getSympathy() {
+        return sympathy;
+    }
+
+    public void setSympathy(Long sympathy) {
+        this.sympathy = sympathy;
     }
 }

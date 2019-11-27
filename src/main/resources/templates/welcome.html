@@ -39,7 +39,8 @@
                         <li th:each="food : ${diet.foods}" th:text="${food.food}"></li>
                     </ol>
                     <button th:onclick="'window.location.href = \'' +  @{/diet/{id}(id=${diet.id})} + '\''"
-                            th:text="comment"></button>
+                            th:text="comment">
+                    </button>
                 </td>
             </tr>
             <tr>
@@ -61,7 +62,8 @@
                         <li th:each="food : ${diet.foods}" th:text="${food.food}"></li>
                     </ol>
                     <button th:onclick="'window.location.href = \'' +  @{/diet/{id}(id=${diet.id})} + '\''"
-                            th:text="comment"></button>
+                            th:text="comment">
+                    </button>
                 </td>
             </tr>
         </table>

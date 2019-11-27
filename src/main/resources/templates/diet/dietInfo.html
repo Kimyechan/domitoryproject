@@ -19,14 +19,31 @@
 </div>
 <div>
     <!--  comment write button -->
-    <button th:onclick="'window.location.href = \'' +  @{/comment/create/{dietId}(dietId=${diet.id})} + '\''" th:text="write"></button>
+    <button th:onclick="'window.location.href = \'' +  @{/comment/create/{dietId}(dietId=${diet.id})} + '\''"
+            th:text="write"></button>
 </div>
 <div>
     <!--  comment list -->
-    <div th:each="comment : ${diet.commentList}">
-        <h5 th:text="${comment.subject}"></h5>
-        <h5 th:text="${comment.rating}"></h5>
-        <h5 th:text="${comment.content}"></h5>
+    <label>My Write</label>
+    <div th:each="comment : ${diet.commentList}" th:if="${login.id} == ${comment.login.id}">
+        <label>user : </label><h5 th:text="${comment.login.name}"></h5>
+        <label>subeject :</label><h5 th:text="${comment.subject}"></h5>
+        <label>rating : </label><h5 th:text="${comment.rating}"></h5>
+        <label>content : </label><h5 th:text="${comment.content}"></h5>
+        <button th:onclick="'window.location.href = \'' +  @{/comment/sympathy/{commentId}/{dietId}(commentId=${comment.id}, dietId=${diet.id})} + '\''"
+                th:text="${comment.sympathy} + ' sympathy'"/>
+        <button th:onclick="'window.location.href = \'' +  @{/comment/update/{commentId}/{dietId}(commentId=${comment.id}, dietId=${diet.id})} + '\''"
+                th:text="update"/>
+        <button th:onclick="'window.location.href = \'' +  @{/comment/delete/{commentId}/{dietId}(commentId=${comment.id}, dietId=${diet.id})} + '\''"
+                th:text="delete"/>
+    </div>
+    <div th:each="comment : ${diet.commentList}" th:unless="${login.id} == ${comment.login.id}">
+        <label>user : </label><h5 th:text="${comment.login.name}"></h5>
+        <label>subeject :</label><h5 th:text="${comment.subject}"></h5>
+        <label>rating : </label><h5 th:text="${comment.rating}"></h5>
+        <label>content : </label><h5 th:text="${comment.content}"></h5>
+        <button th:onclick="'window.location.href = \'' +  @{/comment/sympathy/{commentId}/{dietId}(commentId=${comment.id}, dietId=${diet.id})} + '\''"
+                th:text="${comment.sympathy} + ' sympathy'"/>
     </div>
 </div>
 </body>

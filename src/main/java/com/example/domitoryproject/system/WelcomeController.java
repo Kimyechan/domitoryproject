@@ -57,8 +57,6 @@ public class WelcomeController {
         model.addAttribute("dietlist", dietlist);
         model.addAttribute("login", login);
 
-        System.out.println("====================================");
-        System.out.println(login.getId());
         return "welcome";
     }
 }

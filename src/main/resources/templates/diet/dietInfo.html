@@ -8,7 +8,6 @@
 <div>
     <div th:object="${diet}">
         <h5 th:text="*{date}"></h5>
-        <h5 th:text="*{dayOfWeek}"></h5>
         <h5 th:text="*{kindOfMeal}"></h5>
         <h5 th:each="food : *{foods}" th:text="${food.food}"></h5>
         <h5 th:text="*{ratingAverage}"></h5>

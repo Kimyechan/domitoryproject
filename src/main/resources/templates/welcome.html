@@ -16,7 +16,13 @@
             <tr>
                 <td><button onclick="location.href = '/login/logout'">Logout</button></td>
             </tr>
+            <tr>
+                <button th:if="${login.id} == 'admin'"th:onclick="'window.location.href = \'' +  @{/diet/create} + '\''"
+                        th:text="createDiet">
+                </button>
+            </tr>
         </table>
+
     </div>
     <div th:if="${login.id} == null">
         <form th:action="@{/login/signIn}" method="post">
@@ -28,6 +34,15 @@
                 th:text="SignUp">
         </button>
     </div>
+    <div>
+        <h4>CURRENT DIET</h4>
+        <div th:object="${currentDiet}">
+            <h5 th:text="*{date}"></h5>
+            <h5 th:text="*{kindOfMeal}"></h5>
+            <h5 th:each="food : *{foods}" th:text="${food.food}"></h5>
+            <h5 th:text="*{ratingAverage}"></h5>
+        </div>
+    </div>
     <!-- 식단표   -->
     <div>
         <table>
@@ -35,7 +50,6 @@
                 <td th:each="diet : ${dietlist}" th:if="${diet.kindOfMeal.toString().equals('breakfast')}">
                     <ol>
                         <li th:text="${diet.date}"></li>
-                        <li th:text="${diet.dayOfWeek}"></li>
                         <li th:text="${diet.kindOfMeal}"></li>
                         <li th:each="food : ${diet.foods}" th:text="${food.food}"></li>
                     </ol>
@@ -48,7 +62,6 @@
                 <td th:each="diet : ${dietlist}" th:if="${diet.kindOfMeal.toString().equals('lunch')}">
                     <ol>
                         <li th:text="${diet.date}"></li>
-                        <li th:text="${diet.dayOfWeek}"></li>
                         <li th:text="${diet.kindOfMeal}"></li>
                         <li th:each="food : ${diet.foods}" th:text="${food.food}"></li>
                     </ol>
@@ -60,7 +73,6 @@
                 <td th:each="diet : ${dietlist}" th:if="${diet.kindOfMeal.toString().equals('dinner')}">
                     <ol>
                         <li th:text="${diet.date}"></li>
-                        <li th:text="${diet.dayOfWeek}"></li>
                         <li th:text="${diet.kindOfMeal}"></li>
                         <li th:each="food : ${diet.foods}" th:text="${food.food}"></li>
                     </ol>

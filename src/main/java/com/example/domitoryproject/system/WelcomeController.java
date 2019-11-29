@@ -15,7 +15,11 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,58 +32,42 @@ public class WelcomeController {
     @Autowired
     CommentRepository commentRepository;
 
-//    @GetMapping("/")
-//    public String welcome(@SessionAttribute("login") Login login, Model model, SessionStatus sessionStatus) {
-//        List<Diet> dietlist = dietRepository.findAll();
-//        model.addAttribute("dietlist", dietlist);
-//
-//        model.addAttribute("loginConfirm", sessionStatus.isComplete());
-//        model.addAttribute("login", login);
-//
-//        return "welcome";
-//    }
-
-    //    @GetMapping("/")
-//    public String welcome(Model model, SessionStatus sessionStatus, HttpSession session) {
-//        List<Diet> dietlist = dietRepository.findAll();
-//        model.addAttribute("dietlist", dietlist);
-//
-//        Login login = (Login) session.getAttribute("login");
-//        model.addAttribute("login", login);
-//        System.out.println("===========================================================================");
-//        System.out.println(login.getId());
-//        return "welcome";
-//    }
-
     @GetMapping("/")
     public String welcome(@SessionAttribute("login") Login login, Model model) {
-//        for (Diet.DayOfWeek dayOfWeek : Diet.DayOfWeek.values()) {
-//            for (Diet.KindOfMeal kindOfMeal : Diet.KindOfMeal.values()) {
-//                Diet newDiet1 = new Diet();
-//                newDiet1.setKindOfMeal(kindOfMeal);
-//                newDiet1.setDate("2019-11-25");
-//                newDiet1.setDayOfWeek(dayOfWeek);
-//                newDiet1.setRatingAverage(0.0);
-//
-//                List<Food> foods = new ArrayList<>();
-//                Food food1 = new Food();
-//                food1.setFood("rice");
-//                food1.setOwner(newDiet1);
-//                Food food2 = new Food();
-//                food2.setFood("bulgogi");
-//                food2.setOwner(newDiet1);
-//
-//                foods.add(food1);
-//                foods.add(food2);
-//
-//                newDiet1.setFoods(foods);
-//                dietRepository.save(newDiet1);
-//            }
-//        }
-
         List<Diet> dietlist = dietRepository.findAll();
+
+        LocalDate currentDate = LocalDate.now();
+        LocalTime currentTime = LocalTime.now();
+        Diet currentDiet = new Diet();
+
+        System.out.println("======================================================================");
+        System.out.println(currentDate + " ////" + currentTime);
+        for(Diet diet : dietlist) {
+            if(diet.getDate().equals(currentDate)) {
+                if(currentTime.compareTo(LocalTime.of(7,30)) >= 0 &&
+                        currentTime.compareTo(LocalTime.of(12,0)) < 0 &&
+                            diet.getKindOfMeal() == Diet.KindOfMeal.breakfast) {
+                    currentDiet = diet;
+                    break;
+                }
+                else if(currentTime.compareTo(LocalTime.of(12,0)) >= 0 &&
+                        currentTime.compareTo(LocalTime.of(18,0)) < 0 &&
+                        diet.getKindOfMeal() == Diet.KindOfMeal.lunch) {
+                    currentDiet = diet;
+                    break;
+                }
+                else if(currentTime.compareTo(LocalTime.of(18,0)) >= 0 &&
+                        currentTime.compareTo(LocalTime.of(7,30)) < 0 &&
+                        diet.getKindOfMeal() == Diet.KindOfMeal.dinner) {
+                    currentDiet= diet;
+                    break;
+                }
+            }
+        }
+        
         model.addAttribute("dietlist", dietlist);
         model.addAttribute("login", login);
+        model.addAttribute("currentDiet", currentDiet);
 
         return "welcome";
     }

@@ -16,7 +16,6 @@ public class Food {
     @ManyToOne
     private Diet owner;
 
-    @NotNull
     private String food;
 
     public Diet getOwner() {

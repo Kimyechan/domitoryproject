@@ -1,8 +1,11 @@
 package com.example.domitoryproject.diet;
 
+import org.apache.tomcat.jni.Local;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.*;
 
 @Entity
@@ -42,8 +45,8 @@ public class Diet {
 
     @NotNull
 //    @Temporal(TemporalType.DATE)
-//    private Date date;
-    private String date;
+    private LocalDate date;
+//    private String date;
 
     @NotNull
     @Enumerated(EnumType.ORDINAL)
@@ -51,13 +54,13 @@ public class Diet {
 
     @Column(name = "foods")
 //    @ElementCollection(targetClass = String.class) //List<String> to DB
-    @NotEmpty
+//    @NotEmpty
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
-    private List<Food> foods;
+    private List<Food> foods= new ArrayList<>();
 
-    @NotNull
-    @Enumerated(EnumType.ORDINAL)
-    private DayOfWeek dayOfWeek;
+//    @NotNull
+//    @Enumerated(EnumType.ORDINAL)
+//    private DayOfWeek dayOfWeek;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     private List<Comment> commentList = new ArrayList<>();
@@ -80,11 +83,11 @@ public class Diet {
         this.kindOfMeal = kindOfMeal;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -94,14 +97,6 @@ public class Diet {
 
     public void setFoods(List<Food> foods) {
         this.foods = foods;
-    }
-
-    public DayOfWeek getDayOfWeek() {
-        return dayOfWeek;
-    }
-
-    public void setDayOfWeek(DayOfWeek dayOfWeek) {
-        this.dayOfWeek = dayOfWeek;
     }
 
     public List<Comment> getCommentList() {

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--    <form th:action="@{/diet/create}" method="post">-->
+<!--        <input type="date" th:field="${diet.date}"><br>-->
+<!--        <label>Breakfast</label>-->
+<!--        <input type="text"  th:each="breakfastFood, Stat : ${breakfastFoods}" th:field="${breakfastFoods[__${Stat.index}__].toString()}"><br>-->
+<!--        <label>Lunch</label>-->
+<!--        <input type="text" th:each="lunchFood, Stat : ${lunchFoods}" th:field="${lunchFoods[__${Stat.index}__].toString()}"><br>-->
+<!--        <label>Dinner</label>-->
+<!--        <input type="text" th:each="dinnerFood, Stat : ${dinnerFoods}" th:fiedl="${dinnerFoods[__${Stat.index}__].toString()}"><br>-->
+<!--        <input type="submit" value="Create">-->
+<!--    </form>-->
+    <form th:actino="@{/diet/create}" th:object="${dayDiet}" method="post">
+        <fieldset>
+            <input type="submit" id="submitButton" th:value="Save">
+            <input type="reset" id="resetButton" name="reset" th:value="Reset"/>
+            <table>
+                <tr>
+                    <input type="date" th:field="${dayDiet.date}">
+                </tr>
+                <tr>
+                    <td>Breakfast:</td>
+                </tr>
+                <tr th:each="breakfastFood, itemStat : *{breakfastFoods}">
+                    <td><input th:field="*{breakfastFoods[__${itemStat.index}__]}" /></td>
+                </tr>
+                <tr>
+                    <td>Lunch:</td>
+                </tr>
+                <tr th:each="lunchFood, itemStat : *{lunchFoods}">
+                    <td><input th:field="*{lunchFoods[__${itemStat.index}__]}" /></td>
+                </tr>
+                <tr>
+                    <td>Dinner:</td>
+                </tr>
+                <tr th:each="dinnerFood, itemStat : *{dinnerFoods}">
+                    <td><input th:field="*{dinnerFoods[__${itemStat.index}__]}" /></td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
+</body>
+</html>

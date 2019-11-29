@@ -83,11 +83,24 @@
             </tr>
         </table>
     </div>
-    <!-- 신고 게시판   -->
     <div>
-        <div>
-            <!--    음식 사진       <-->
-            <img>
+        <h4>REPORT</h4>
+        <button th:onclick="'window.location.href = \'' +  @{/report/create} + '\''" th:text="write"/>
+        <div th:each="report : ${reportList}" >
+            <table>
+                <tr>
+                    <td><img th:src="'data:image/png;base64,' + ${report.getData()}" style="height: 100px; width: 100px"/></td>
+                </tr>
+                <tr>
+                    <td th:text="${report.subject}"></td>
+                </tr>
+                <tr>
+                    <td th:text="${report.content}"></td>
+                </tr>
+                <tr>
+                    <td th:text="${report.date}"></td>
+                </tr>
+            </table>
         </div>
         <div>
         </div>

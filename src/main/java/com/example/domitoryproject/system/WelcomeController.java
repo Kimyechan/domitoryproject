@@ -5,6 +5,8 @@ import com.example.domitoryproject.diet.Diet;
 import com.example.domitoryproject.diet.DietRepository;
 import com.example.domitoryproject.diet.Food;
 import com.example.domitoryproject.login.Login;
+import com.example.domitoryproject.report.Report;
+import com.example.domitoryproject.report.ReportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -32,8 +35,11 @@ public class WelcomeController {
     @Autowired
     CommentRepository commentRepository;
 
+    @Autowired
+    ReportRepository reportRepository;
+
     @GetMapping("/")
-    public String welcome(@SessionAttribute("login") Login login, Model model) {
+    public String welcome(@SessionAttribute("login") Login login, Model model) throws UnsupportedEncodingException {
         List<Diet> dietlist = dietRepository.findAll();
 
         LocalDate currentDate = LocalDate.now();
@@ -64,10 +70,23 @@ public class WelcomeController {
                 }
             }
         }
-        
+
+        List<Report> reportList = reportRepository.findAll();
+//        List<String> encodeList = new ArrayList<>();
+//
+//        for(Report report : reportList) {
+//            byte[] encode = java.util.Base64.getEncoder().encode(report.getFile().getData());
+//            String encodeString = new String(encode, "UTF-8");
+//            encodeList.add(encodeString);
+//        }
+//
+//        model.addAttribute("imageList", encodeList);
+
         model.addAttribute("dietlist", dietlist);
         model.addAttribute("login", login);
         model.addAttribute("currentDiet", currentDiet);
+        model.addAttribute("reportList", reportList);
+
 
         return "welcome";
     }

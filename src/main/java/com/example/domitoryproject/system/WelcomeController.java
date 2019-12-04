@@ -31,17 +31,54 @@ public class WelcomeController {
 
     @GetMapping("/")
     public String welcome(@SessionAttribute("login") Login login, Model model) throws UnsupportedEncodingException {
-        List<Diet> dietlist = dietRepository.findAll();
+        List<Diet> dietlist = dietRepository.findAllByOrderByDateAsc();
 
         LocalDate currentDate = LocalDate.now();
         LocalTime currentTime = LocalTime.now();
         Diet currentDiet = new Diet();
-
+//        Diet breakfastDiet = new Diet();
+//        Diet lunchDiet = new Diet();
+//        Diet dinnerDiet = new Diet();
+//
+//        Diet tmpdiet = new Diet();
+//
+//        for(Diet diet : dietlist) {
+//            if(diet.getDate().equals(currentDate)) {
+//                if(currentTime.compareTo(LocalTime.of(0,0)) >= 0 &&
+//                        currentTime.compareTo(LocalTime.of(12,0)) < 0 &&
+//                            diet.getKindOfMeal() == Diet.KindOfMeal.breakfast) {
+//                    currentDiet = diet;
+//                    break;
+//                }
+//                else if(currentTime.compareTo(LocalTime.of(12,0)) >= 0 &&
+//                        currentTime.compareTo(LocalTime.of(18,0)) < 0 &&
+//                        diet.getKindOfMeal() == Diet.KindOfMeal.lunch) {
+//                    currentDiet = diet;
+//                    break;
+//                }
+//                else if(currentTime.compareTo(LocalTime.of(18,0)) >= 0 &&
+//                        currentTime.compareTo(LocalTime.of(0,0)) < 0 &&
+//                        diet.getKindOfMeal() == Diet.KindOfMeal.dinner) {
+//                    currentDiet= diet;
+//                    break;
+//                }
+//
+//                if(diet.getKindOfMeal() == Diet.KindOfMeal.breakfast) {
+//                    breakfastDiet = diet;
+//                }
+//                else if(diet.getKindOfMeal() == Diet.KindOfMeal.lunch) {
+//                    lunchDiet = diet;
+//                }
+//                else if(diet.getKindOfMeal() == Diet.KindOfMeal.dinner) {
+//                    dinnerDiet = diet;
+//                }
+//            }
+//        }
         for(Diet diet : dietlist) {
             if(diet.getDate().equals(currentDate)) {
                 if(currentTime.compareTo(LocalTime.of(0,0)) >= 0 &&
                         currentTime.compareTo(LocalTime.of(12,0)) < 0 &&
-                            diet.getKindOfMeal() == Diet.KindOfMeal.breakfast) {
+                        diet.getKindOfMeal() == Diet.KindOfMeal.breakfast) {
                     currentDiet = diet;
                     break;
                 }
@@ -66,6 +103,10 @@ public class WelcomeController {
         model.addAttribute("login", login);
         model.addAttribute("currentDiet", currentDiet);
         model.addAttribute("reportList", reportList);
+//        model.addAttribute("breakfastDiet", breakfastDiet);
+//        model.addAttribute("lunchDiet", lunchDiet);
+//        model.addAttribute("dinnerDiet", dinnerDiet);
+        model.addAttribute("currentDate", currentDate);
 
         return "welcome";
     }

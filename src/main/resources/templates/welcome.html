@@ -3,38 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <style>
+        #all{
+            padding-left: 40px;
+            padding-right: 40px;
+        }
+        #title{
+            color: #1d2083;
+            font-size: 50px;
+            font-weight: bold;
+            padding-right: 0px;
+            padding-bottom: 0px;
+            margin-top: 50px;
+        }
+
+        #grid{
+            display: grid;
+            grid-template-columns: 0.5fr 5fr 1fr 1fr;
+        }
+
+        .login{
+            margin-top: 50px;
+        }
+
+        h4{
+            font-size: 24px;
+            padding: 10px;
+            border-top: 2px solid  #1d2083;
+            border-bottom: 2px solid  #1d2083;
+            margin-top: 0px;
+            color: #019add;
+        }
+
+        ul{
+            list-style: none;
+        }
+
+
+    </style>
 </head>
 <body>
-<div> 기숙사 식사 개선 page</div>
-<!-- 로그인 -->
-<div>
-    <div th:if="${login.id} != null">
-        <table>
-            <tr>
-                <td th:text="${login.id} + ' Welcome'"></td>
-            </tr>
-            <tr>
-                <td><button onclick="location.href = '/login/logout'">Logout</button></td>
-            </tr>
-            <tr>
-                <button th:if="${login.id} == 'admin'"th:onclick="'window.location.href = \'' +  @{/diet/create} + '\''"
-                        th:text="createDiet">
-                </button>
-            </tr>
-        </table>
+<div id="all">
+    <div id="grid">
+<!--        <img src="C:\Users\da202\Desktop\로고.png" width="0" height="0" style="margin-top: 20px">-->
+        <img src="http://www.pknu.ac.kr/img/custom/obj_30.gif" width="150" height="150" style="margin-top: 20px">
+        <span id="title"> 기숙사 식사 개선 page</span>
+        <!-- 로그인 -->
+        <div th:if="${login.id} != null" class="login">
+            <table>
+                <tr>
+                    <td th:text="${login.id} + ' Welcome'"></td>
+                </tr>
+                <tr>
+                    <td><button onclick="location.href = '/login/logout'"class="btn btn-outline-dark">Logout</button></td>
 
-    </div>
-    <div th:if="${login.id} == null">
-        <form th:action="@{/login/signIn}" method="post">
-            <input type="text" name="id"/>
-            <input type="password" name="password"/>
-            <input type="submit" value="Login"/>
-        </form>
-        <button th:onclick="'window.location.href = \'' +  @{/login/signUp} + '\''"
-                th:text="SignUp">
-        </button>
+                </tr>
+                <tr>
+                    <button th:if="${login.id} == 'admin'"th:onclick="'window.location.href = \'' +  @{/diet/create} + '\''"
+                            th:text="createDiet">
+                    </button>
+                </tr>
+            </table>
+
+        </div>
+
+        <div th:if="${login.id} == null" class="login">
+            <form th:action="@{/login/signIn}" method="post">
+                <input type="text" name="id"/>
+                <input type="password" name="password"/>
+                <input type="submit" value="Login"/>
+            </form>
+            <button th:onclick="'window.location.href = \'' +  @{/login/signUp} + '\''"
+                    th:text="SignUp">
+            </button>
+        </div>
     </div>
     <div>
+<!--        <div th:object="${breakfastDiet}">-->
+<!--            <h5 th:text="*{date}"></h5>-->
+<!--            <h5 th:text="*{kindOfMeal}"></h5>-->
+<!--            <h5 th:each="food : *{foods}" th:text="${food.food}"></h5>-->
+<!--            <h5 th:text="*{ratingAverage}"></h5>-->
+<!--        </div>-->
+<!--        <div th:object="${lunchDiet}">-->
+<!--            <h5 th:text="*{date}"></h5>-->
+<!--            <h5 th:text="*{kindOfMeal}"></h5>-->
+<!--            <h5 th:each="food : *{foods}" th:text="${food.food}"></h5>-->
+<!--            <h5 th:text="*{ratingAverage}"></h5>-->
+<!--        </div>-->
+<!--        <div th:object="${dinnerDiet}">-->
+<!--            <h5 th:text="*{date}"></h5>-->
+<!--            <h5 th:text="*{kindOfMeal}"></h5>-->
+<!--            <h5 th:each="food : *{foods}" th:text="${food.food}"></h5>-->
+<!--            <h5 th:text="*{ratingAverage}"></h5>-->
+<!--        </div>-->
         <h4>CURRENT DIET</h4>
         <div th:object="${currentDiet}">
             <h5 th:text="*{date}"></h5>
@@ -45,38 +108,43 @@
     </div>
     <!-- 식단표   -->
     <div>
+        <h4>세종기숙사 식단</h4>
         <table>
             <tr>
                 <td th:each="diet : ${dietlist}" th:if="${diet.kindOfMeal.toString().equals('breakfast')}">
-                    <ol>
+
+                    <ul>
                         <li th:text="${diet.date}"></li>
                         <li th:text="${diet.kindOfMeal}"></li>
                         <li th:each="food : ${diet.foods}" th:text="${food.food}"></li>
-                    </ol>
-                    <button th:onclick="'window.location.href = \'' +  @{/diet/{id}(id=${diet.id})} + '\''"
+                    </ul>
+                    <button th:onclick="'window.location.href = \'' +  @{/diet/{id}(id=${diet.id})} + '\''" style = "margin-left: 38px;"
                             th:text="comment">
                     </button>
                 </td>
             </tr>
             <tr>
                 <td th:each="diet : ${dietlist}" th:if="${diet.kindOfMeal.toString().equals('lunch')}">
-                    <ol>
+
+                    <ul>
                         <li th:text="${diet.date}"></li>
                         <li th:text="${diet.kindOfMeal}"></li>
                         <li th:each="food : ${diet.foods}" th:text="${food.food}"></li>
-                    </ol>
-                    <button th:onclick="'window.location.href = \'' +  @{/diet/{id}(id=${diet.id})} + '\''"
-                            th:text="comment"></button>
+                    </ul>
+                    <button th:onclick="'window.location.href = \'' +  @{/diet/{id}(id=${diet.id})} + '\''" style = "margin-left: 38px;"
+                            th:text="comment">
+                    </button>
                 </td>
             </tr>
             <tr>
                 <td th:each="diet : ${dietlist}" th:if="${diet.kindOfMeal.toString().equals('dinner')}">
-                    <ol>
+
+                    <ul>
                         <li th:text="${diet.date}"></li>
                         <li th:text="${diet.kindOfMeal}"></li>
                         <li th:each="food : ${diet.foods}" th:text="${food.food}"></li>
-                    </ol>
-                    <button th:onclick="'window.location.href = \'' +  @{/diet/{id}(id=${diet.id})} + '\''"
+                    </ul>
+                    <button th:onclick="'window.location.href = \'' +  @{/diet/{id}(id=${diet.id})} + '\''" style = "margin-left: 38px;"
                             th:text="comment">
                     </button>
                 </td>
@@ -85,29 +153,29 @@
     </div>
     <div>
         <h4>REPORT</h4>
-        <button th:onclick="'window.location.href = \'' +  @{/report/create} + '\''" th:text="write"/>
+        <button th:onclick="'window.location.href = \'' +  @{/report/create} + '\''" th:text="write"></button>
         <div th:each="report : ${reportList}" >
             <table>
                 <tr>
-                    <td><img th:src="'data:image/png;base64,' + ${report.getData()}" style="height: 100px; width: 100px"/></td>
+                    <td rowspan="4"><img th:src="'data:image/png;base64,' + ${report.getData()}" style="height: 100px; width: 100px"/></td>
+
+                    <td th:text="${report.subject}" style="font-weight: bold ; font-size:20px"></td>
                 </tr>
                 <tr>
-                    <td th:text="${report.subject}"></td>
+                    <td th:text="${report.content}" style="font-size: 15px"></td><br>
                 </tr>
                 <tr>
-                    <td th:text="${report.content}"></td>
+                    <td th:text="${report.date}"style="font-size: 15px"></td><br>
                 </tr>
                 <tr>
-                    <td th:text="${report.date}"></td>
-                </tr>
-                <tr>
-                    <td th:text="${report.username}"></td>
+                    <td th:text="${report.username}"style="font-size: 15px"></td><br>
                 </tr>
             </table>
         </div>
         <div>
         </div>
     </div>
+</div>
 </div>
 </body>
 </html>

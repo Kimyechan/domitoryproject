@@ -1,16 +1,48 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>createForm</title>
+    <style>
+        .container {
+            border: 2px solid powderblue;
+            margin-top: 100px;
+        }
+
+
+    </style>
 </head>
 <body>
-<form th:action="@{/report/create}" th:object="${report}"  method="post" enctype="multipart/form-data">
-    <input type="file" name="image" multiple>
-    <input type="text" th:field="*{subject}">
-    <input type="text" th:field="*{content}">
-    <input type="date" th:field="*{date}">
-    <input type="submit" value="create">
-</form>
+<div class="container">
+    <form th:action="@{/report/create}" th:object="${report}" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <br>
+            <input type="text" class="form-control" id="title"
+                   placeholder="제목 입력" name="title"
+                   maxlength="100" required="required"
+                   pattern=".{4,100}" th:field="*{subject}">
+        </div>
+        <br>
+        <div class="form-group">
+        <textarea class="form-control" rows="5" id="content"
+                  name="content" placeholder="내용 작성" th:field="*{content}"></textarea>
+        </div>
+        <br>
+        <div class="form-group">
+            <input type="date" class="form-control" id="date" maxlength="100" th:field="*{date}">
+        </div>
+        <div class="form-group">
+            <input type="file" name="image" multiple>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="create">
+        </div>
+    </form>
+</div>
+
+</div>
 </body>
 </html>

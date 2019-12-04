@@ -1,8 +1,22 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>adminDiet</title>
+    <style>
+        #dat {
+            width: 196px;
+        }
+
+        .container {
+            border: 2px solid powderblue;
+            padding-bottom: 15px;
+            margin-top: 150px;
+        }
+    </style>
 </head>
 <body>
 <!--    <form th:action="@{/diet/create}" method="post">-->
@@ -15,34 +29,52 @@
 <!--        <input type="text" th:each="dinnerFood, Stat : ${dinnerFoods}" th:fiedl="${dinnerFoods[__${Stat.index}__].toString()}"><br>-->
 <!--        <input type="submit" value="Create">-->
 <!--    </form>-->
-    <form th:actino="@{/diet/create}" th:object="${dayDiet}" method="post">
-        <fieldset>
+<div class="container">
+        <form th:actino="@{/diet/create}" th:object="${dayDiet}" method="post">
+
+            <fieldset>
+                <table>
+                    <div class="form-group">
+                        <tr>
+                            <input class="form-control" id="dat" type="date" th:field="${dayDiet.date}">
+                        </tr>
+                    </div>
+                    <div class="form-group">
+                        <tr>
+                            <td>Breakfast:</td>
+                        </tr>
+                    </div>
+                    <div class="form-group">
+                        <tr th:each="breakfastFood, itemStat : *{breakfastFoods}">
+                            <td><input class="form-control" th:field="*{breakfastFoods[__${itemStat.index}__]}"/></td>
+                        </tr>
+                    </div>
+                    <div class="form-group">
+                        <tr>
+                            <td>Lunch:</td>
+                        </tr>
+                    </div>
+                    <div class="form-group">
+                        <tr th:each="lunchFood, itemStat : *{lunchFoods}">
+                            <td><input class="form-control" th:field="*{lunchFoods[__${itemStat.index}__]}"/></td>
+                        </tr>
+                    </div>
+                    <div class="form-group">
+                        <tr>
+                            <td>Dinner:</td>
+                        </tr>
+                    </div>
+                    <div class="form-group">
+                        <tr th:each="dinnerFood, itemStat : *{dinnerFoods}">
+                            <td><input class="form-control" th:field="*{dinnerFoods[__${itemStat.index}__]}"/></td>
+                        </tr>
+                    </div>
+                </table>
+            </fieldset>
+            <br>
             <input type="submit" id="submitButton" th:value="Save">
             <input type="reset" id="resetButton" name="reset" th:value="Reset"/>
-            <table>
-                <tr>
-                    <input type="date" th:field="${dayDiet.date}">
-                </tr>
-                <tr>
-                    <td>Breakfast:</td>
-                </tr>
-                <tr th:each="breakfastFood, itemStat : *{breakfastFoods}">
-                    <td><input th:field="*{breakfastFoods[__${itemStat.index}__]}" /></td>
-                </tr>
-                <tr>
-                    <td>Lunch:</td>
-                </tr>
-                <tr th:each="lunchFood, itemStat : *{lunchFoods}">
-                    <td><input th:field="*{lunchFoods[__${itemStat.index}__]}" /></td>
-                </tr>
-                <tr>
-                    <td>Dinner:</td>
-                </tr>
-                <tr th:each="dinnerFood, itemStat : *{dinnerFoods}">
-                    <td><input th:field="*{dinnerFoods[__${itemStat.index}__]}" /></td>
-                </tr>
-            </table>
-        </fieldset>
-    </form>
+        </form>
+</div>
 </body>
 </html>

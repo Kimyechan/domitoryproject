@@ -1,49 +1,94 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>dietInfo</title>
+    <style>
+        .container {
+            border: 2px solid powderblue;
+            padding: 15px;
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+
+        h5 {
+            border: solid gray 2px;
+            padding: 30px;
+            border-radius: 3px;
+            border-color: #E6E6E6
+        }
+
+        h5:hover {
+            background-color: #F2F2F2
+        }
+
+        button {
+            padding: 10px;
+            margin-right: 5px;
+        }
+
+    </style>
 </head>
 <body>
-<div>
-    <div th:object="${diet}">
-        <h5 th:text="*{date}"></h5>
-        <h5 th:text="*{kindOfMeal}"></h5>
-        <h5 th:each="food : *{foods}" th:text="${food.food}"></h5>
-        <h5 th:text="*{ratingAverage}"></h5>
+<div class="container">
+    <label>식단</label>
+    <div class="form-group">
+        <div th:object="${diet}">
+            <label>날짜</label>
+            <h5 th:text="*{date}"></h5>
+            <label>식사 시간</label>
+            <h5 th:text="*{kindOfMeal}"></h5>
+            <label>종류</label>
+            <h5 th:each="food : *{foods}" th:text="${food.food}"></h5>
+            <label>전체 평점</label>
+            <h5 th:text="*{ratingAverage}"></h5>
+        </div>
     </div>
-</div>
-<div>
-    <!--  comment count number -->
-    <h5 th:text="${countComment} + ' Comments'"></h5>
-</div>
-<div>
-    <!--  comment write button -->
-    <button th:onclick="'window.location.href = \'' +  @{/comment/create/{dietId}(dietId=${diet.id})} + '\''"
-            th:text="write"></button>
-</div>
-<div>
+    <div class="form-group">
+        <label>댓글 수</label>
+        <h5 th:text="${countComment} + ' Comments'"></h5>
+    </div>
+    <div class="form-group">
+        <!--  comment write button -->
+        <button th:onclick="'window.location.href = \'' +  @{/comment/create/{dietId}(dietId=${diet.id})} + '\''"
+                th:text="write"></button>
+    </div>
+
     <!--  comment list -->
-    <label>My Write</label>
+    <label>내가 쓴 글</label>
     <div th:each="comment : ${diet.commentList}" th:if="${login.id} == ${comment.login.id}">
-        <label>user : </label><h5 th:text="${comment.login.name}"></h5>
-        <label>subeject :</label><h5 th:text="${comment.subject}"></h5>
-        <label>rating : </label><h5 th:text="${comment.rating}"></h5>
-        <label>content : </label><h5 th:text="${comment.content}"></h5>
+        <label>user : </label>
+        <h5 th:text="${comment.login.name}"></h5>
+        <label>subeject :</label>
+        <h5 th:text="${comment.subject}"></h5>
+        <label>rating : </label>
+        <h5 th:text="${comment.rating}"></h5>
+        <label>content : </label>
+        <h5 th:text="${comment.content}"></h5>
         <button th:onclick="'window.location.href = \'' +  @{/comment/sympathy/{commentId}/{dietId}(commentId=${comment.id}, dietId=${diet.id})} + '\''"
                 th:text="${comment.sympathy} + ' sympathy'"/>
+
         <button th:onclick="'window.location.href = \'' +  @{/comment/update/{commentId}/{dietId}(commentId=${comment.id}, dietId=${diet.id})} + '\''"
                 th:text="update"/>
+        </button>
         <button th:onclick="'window.location.href = \'' +  @{/comment/delete/{commentId}/{dietId}(commentId=${comment.id}, dietId=${diet.id})} + '\''"
                 th:text="delete"/>
+        </button>
     </div>
-    <div th:each="comment : ${diet.commentList}" th:unless="${login.id} == ${comment.login.id}">
-        <label>user : </label><h5 th:text="${comment.login.name}"></h5>
-        <label>subeject :</label><h5 th:text="${comment.subject}"></h5>
-        <label>rating : </label><h5 th:text="${comment.rating}"></h5>
-        <label>content : </label><h5 th:text="${comment.content}"></h5>
-        <button th:onclick="'window.location.href = \'' +  @{/comment/sympathy/{commentId}/{dietId}(commentId=${comment.id}, dietId=${diet.id})} + '\''"
-                th:text="${comment.sympathy} + ' sympathy'"/>
+    <div class="form-group">
+        <label>댓글</label>
+        <div th:each="comment : ${diet.commentList}" th:unless="${login.id} == ${comment.login.id}">
+            <label>user : </label><h5 th:text="${comment.login.name}"></h5>
+            <label>subeject :</label><h5 th:text="${comment.subject}"></h5>
+            <label>rating : </label><h5 th:text="${comment.rating}"></h5>
+            <label>content : </label><h5 th:text="${comment.content}"></h5>
+            <button th:onclick="'window.location.href = \'' +  @{/comment/sympathy/{commentId}/{dietId}(commentId=${comment.id}, dietId=${diet.id})} + '\''"
+                    th:text="${comment.sympathy} + ' sympathy'"/>
+            </button>
+        </div>
     </div>
 </div>
 </body>

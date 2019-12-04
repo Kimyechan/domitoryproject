@@ -3,16 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.1/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.0/vue.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.1/css/bulma.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+ p{
+   margin-top: 150px;
+   margin-left: 15px;
+ }
+
+</style>
+
 </head>
 <body>
+  <div class="columns is-mobile" id="app">
+        <div class="column is-half is-offset-one-quarter">
+                <p class="title is-2 is-spaced" >J O I N</p>
+
+      <div class="box">
     <form th:object="${login}" action="/login/signUp" method="post">
-        <label>ID : </label><input type="text" th:field="*{id}"><br>
-        <label>PASSWORD : </label><input type="text" th:field="*{password}"><br>
-        <label>NAME : </label><input type="text" th:field="*{name}"><br>
-        <label>MAJOR : </label><input type="text" th:field="*{major}"><br>
-        <label>GRADE(1~4) : </label><input type="number" th:field="*{grade}" min="1" max="5"><br>
-        <label>STUDENT NUMBER : </label><input type="text" th:field="*{studentNumber}"><br>
+        <label>ID : </label><input type="text" th:field="*{id}"><br><br>
+        <label>PASSWORD : </label><input type="text" th:field="*{password}"><br><br>
+        <label>NAME : </label><input type="text" th:field="*{name}"><br><br>
+        <label>MAJOR : </label><input type="text" th:field="*{major}"><br><br>
+        <label>GRADE(1~4) : </label><input type="number" th:field="*{grade}" min="1" max="5"><br><br>
+        <label>STUDENT NUMBER : </label><input type="text" th:field="*{studentNumber}"><br><br>
+
         <input type="submit" value="SignUp">
     </form>
+  </div>
 </body>
 </html>

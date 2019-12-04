@@ -1,15 +1,44 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>create</title>
+    <style>
+        .container {
+            border: 2px solid powderblue;
+            margin-top: 100px;
+
+        }
+
+
+    </style>
 </head>
 <body>
-<form th:object="${comment}" th:action="@{/comment/create/{dietId}(dietId=${dietId})}" method="post">
-    <label>subject :</label><input type="text" th:field="*{subject}" name="subject" placeholder="subject"/><br>
-    <label>content : </label><input type="text" th:field="*{content}" name="subject" placeholder="content"/><br>
-    <label>rating(1 to 5)</label><input type="number" th:field="*{rating}" name="rating" min="1" max="5"/><br>
-    <input type="submit" value="submit"/>
-</form>
+<div class="container">
+    <form th:object="${comment}" th:action="@{/comment/create/{dietId}(dietId=${dietId})}" method="post">
+        <div class="form-group">
+            <br>
+            <input type="text" class="form-control" id="title"
+                   placeholder="제목 입력" name="title"
+                   maxlength="100" required="required"
+                   pattern=".{4,100}" th:field="*{subject}" /><br>
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" rows="5" id="content"
+                    name="content" placeholder="내용 작성" th:field="*{content}">
+          </textarea>
+        </div>
+        <div class="form-group">
+            <label>rating(1 to 5) </label><input type="number"
+                                                 th:field="*{rating}" name="rating" min="1" max="5"/><br>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="submit"/>
+        </div>
+    </form>
+</div>
 </body>
 </html>
